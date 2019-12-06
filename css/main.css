@@ -1,0 +1,362 @@
+/* Box-sizing reset: //w3bits.com/?p=3225 */
+html {
+    box-sizing: border-box;
+  }
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+
+
+/* Global Styling */
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+body{
+    font-family: "Helvetica", sans-serif;
+    background: rgb(252, 238, 234);
+}
+
+ul{
+    list-style: none;
+}
+
+a {
+    color: #999;
+    text-decoration: none;
+}
+/* ////////////// */
+/* ////////////// */
+/* ////////////// */
+/* Nav bar */
+/* ////////////// */
+/* ////////////// */
+/* ////////////// */
+
+.navBar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.left{
+    display: flex;
+    align-items: center;
+}
+ .logo{
+     display: flex;
+     flex-direction: row;
+ }
+
+.logo a {
+    /* color: #000;
+    color: rgb(20, 102, 94); */
+    color: salmon;
+    font: bolder;
+}
+
+.logo h1 {
+    font-size: 2.1rem;
+}
+
+.logo p {
+    font-size: 1rem;
+}
+
+/* .logo-image{
+    width: 10%;
+    height: 10%;
+    border-radius: 25%;
+    border: solid;
+} */
+
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav li {
+    margin-right: 1.2rem;
+}
+
+.nav li a {
+    font-size: 14px;
+    font-weight: 550px;
+}
+
+.nav li:last-child a {
+    display: block;
+    /* background: #3cb46e; */
+    background: salmon;
+    color: #fff;
+    padding: 0.5rem 0.6rem;
+    border-radius:5px;
+    transition: filter 0.5s ease-in-out;
+}
+
+.nav li:last-child a:hover {
+  filter: brightness(85%);
+}
+
+.nav-search-form{
+    margin-left: 1rem;
+}
+
+.nav-search-form input{
+    padding: 0.7rem;
+    border-radius: 20px;
+    border: none;
+    background-color: #eee;
+    width: 600px;
+    font-size: 0.9rem;
+    color: #333;
+    border: solid salmon;
+}
+
+.nav-search-form input:focus{
+     background: seashell;
+     border: solid salmon;
+     transition: 0.2s ease-in ;
+     
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+/* ////////////// */
+/* ////////////// */
+/* ////////////// */
+/* Category Nav */
+/* ////////////// */
+/* ////////////// */
+/* ////////////// */
+.category-nav{
+    display: flex;
+    padding-left: 0.6rem;
+    overflow: hidden;
+}
+
+.category-nav .category{
+    padding: 0.8rem;
+}
+
+.category a{
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1;
+}
+
+/* ////////////// */
+/* ////////////// */
+/* ////////////// */
+/* Hero */
+/* ////////////// */
+/* ////////////// */
+/* ////////////// */
+
+.hero{
+    height: 600px;
+    background: url('/public/assets/sahara.jpg') no-repeat right top;
+    background-size: 100% 620px;
+    width: 100%;
+    position: relative;
+}
+
+.hero-overlay{
+    position: absolute;
+    background: rgba(0, 0, 0, 0.4);
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.hero-container{
+    max-width: 60%;
+    margin: auto;
+}
+
+.hero-content{
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero-content h1{
+    font-size: 3rem;
+    color: #fff;
+    z-index: 2;
+}
+
+.hero-content p{
+    color: #fff;
+    z-index: 2;
+    margin: 1rem 0;
+    line-height: 1.5;
+}
+
+.hero-search-form{
+    z-index: 2;
+    margin: 1rem 0.6rem 0 0;
+}
+
+.hero-search-form input{
+    width: 100%;
+    padding: 1.2rem;
+    border-radius: 5px;
+    border: none;
+    color: #000;
+    font-size: 0.9rem;
+}
+
+.hero-search-form input:focus{
+    /* background: seashell; */
+    background: turquoise;
+    /* border: solid salmon; */
+    transition: 0.2s ease-in ;
+    
+}
+
+.trending-search-tags{
+    z-index: 2;
+}
+
+.trending-search-tags a{
+    color: #999;
+    transition: 0.5s color;
+}
+
+.trending-search-tags a:hover{
+    color: #fff;
+}
+
+
+/* ////////////// */
+/* ////////////// */
+/* ////////////// */
+/* masonry */
+/* ////////////// */
+/* ////////////// */
+/* ////////////// */
+
+.images{
+  margin: 2rem 2rem;  
+}
+
+
+.masonry{
+    /* background: #FFECE6; */
+    column-count: 4;
+    column-gap: 1em;
+
+
+
+    /* display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center; */
+   
+}
+
+/* single image is my item */
+.single-img{
+    /* Masonary Bricks aka child elements */
+    /* background-color: rgb(0, 0, 0); */
+    display: inline-block;
+    margin: 0 0 1em;
+    width: 100%;
+    height: 100%;
+    /* padding:2rem 20px 20px ;
+    background: green; */
+ 
+}
+
+/* Styling specific to these images */
+img{
+    width: 100%;
+    height: 100%;
+    border-radius: 25%;
+    border: solid;
+}
+
+img:hover{
+    opacity: .5;
+    transition: .9s ;
+}
+
+
+
+
+/* //////////////////////// */
+/* Masonry on Phone screens */
+/* //////////////////////// */
+@media (max-width: 900px) {
+    .nav-search-form{
+        display: none;
+    }
+    .hero{
+        background-size: 200% 650px;
+    }
+    .hero-container{
+        max-width: 90%;
+        
+    }
+    .category-nav{
+        display:none;
+    }
+    .images{
+        margin: 0.5rem;
+    }
+    img{
+        width: 100%;
+        height: 100%;
+    }
+    .masonry {
+        column-count: 1;
+      }
+  }
+/* //////////////////////// */
+/* Masonry on large screens */
+/* //////////////////////// */
+
+@media only screen and (min-width: 1024px) {
+    .masonry {
+      column-count: 4;
+    }
+  }
+/* /////////////////////////////// */
+/* Masonry on medium-sized screens */
+@media only screen and (max-width: 1023px) and (min-width: 768px) {
+
+    .masonry {
+      column-count: 3;
+    }
+  }
+/* //////////////////////// */
+/* Masonry on small screens */
+/* //////////////////////// */
+@media only screen and (max-width: 767px) and (min-width: 540px) {
+    .masonry {
+      column-count: 2;
+    }
+  }
+
+
+
+
+
+
