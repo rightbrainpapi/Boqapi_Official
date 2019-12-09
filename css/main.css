@@ -299,6 +299,16 @@ img:hover{
 }
 
 
+/* //////////////////////// */
+/* ///// footer Section /// */
+/* //////////////////////// */
+.footerContainer{
+    background: salmon;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding: 10px;
+}
 
 
 /* //////////////////////// */
