@@ -6,4 +6,4 @@ gif-data.json
 #=================================#
 #          Node Modules           # 
 #=================================#
-/node_modules/
+/backend/node_modules/
