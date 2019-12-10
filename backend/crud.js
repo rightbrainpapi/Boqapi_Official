@@ -15,14 +15,37 @@ mongoose.connect ('mongodb://localhost/boqapi-api')
 /////////  All Schemas  //////////
 //////////////////////////////////
 //////////////////////////////////
-const gifSchema = new mongoose.Schema({
-    name: {type:String, required: true},
+const imageSchema = new mongoose.Schema({
+    name: {
+        type:String, 
+        required: true,
+        minlength: 5,
+        maxlength: 25
+    },
+    category: {
+        type: String,
+        required: true,
+        enum: ["photo", "gif", "video"] // When creating a image the categroy we set needs to be one of these values.
+    },
     user: String,
-    tags: [String],
-    gif: String,
+    tags: {
+        type: Array,
+        validate: {
+            validator: function(v){
+                return v && v.length > 0; //v is short for value
+            },
+            message: "Your content should have at least one tag."
+        }
+    },
+    image: String,
     date: {type:Date, default: Date.now},
-    price: Number,
-    isPublished: Boolean
+    isPublished: Boolean,
+    price: {
+        type: Number,
+        required: function(){ return this.isPublished; }, // If isPublished is true then the price will be required
+        min: 10,
+        max: 200,
+    }
 });
 
 
@@ -33,7 +56,7 @@ const gifSchema = new mongoose.Schema({
 //////////////////////////////////
 
 // Creating a model based on the schema
-const Gif = mongoose.model('Gif', gifSchema);
+const Image = mongoose.model('Image', imageSchema);
 
 
 
@@ -51,16 +74,17 @@ const Gif = mongoose.model('Gif', gifSchema);
 //////////////////////////////
 // Create Create Create Create
 //////////////////////////////
-async function createGif(){
-    const gif = new Gif({
-        // name: "Something Newer",
+async function createImage(){
+    const image = new Image({
+        name: "Something Newer",
         user: "King Akeem",
-        tags: ['afro', 'futurism'],
+        category: "photo",
+        tags: [],
         isPublished: true,
         price: 99
     });
     try{
-        const result = await gif.save();
+        const result = await image.save();
         console.log(result);
     }
     catch(err){
@@ -68,7 +92,7 @@ async function createGif(){
     }
 }
 
-createGif()
+createImage()
 
 
 
@@ -83,17 +107,17 @@ createGif()
 //////////////////////////////
 // Retrieve Retrieve Retrieve
 //////////////////////////////
-// async function getGifs(){
-//     return await Gif
-//         .find({isPublished: true, tags: "afro gifs"})
+// async function getImages(){
+//     return await Image
+//         .find({isPublished: true, tags: "afro images"})
 //         .sort({price: -1})
 //         .select({name: 1, user: 1, price: -1});
 //         // .count();
 // }
 
 // async function run() {
-//     const gifs = await getGifs();
-//     console.log(gifs);
+//     const images = await getImages();
+//     console.log(images);
 // }
 
 // run()
@@ -116,26 +140,26 @@ createGif()
 // Update Update Update Update
 ///////////////////////////////
 
-// async function updateOneGif(id){
-//     const gif = await Gif.findById(id);
-//     if(!gif) {
+// async function updateOneImage(id){
+//     const image = await Image.findById(id);
+//     if(!image) {
 //         return;
 //     }
-//     gif.isPublished = false;
-//     gif.user = "Another Person";
-//     const result = await gif.save();
+//     image.isPublished = false;
+//     image.user = "Another Person";
+//     const result = await image.save();
     
 //     console.log(result) 
 // }
 
-// updateOneGif("5dee67a03302b6bad33c6e70");
+// updateOneImage("5dee67a03302b6bad33c6e70");
 
 
 ///////////////////////
 //// Update One ///////
 ////////////////////////////////////////////////////
 ////////////////////////////////////////////////////
-// Find By Id & Update One Gif. (returns the result)
+// Find By Id & Update One Image. (returns the result)
 ///////////////////////////////////////////////////////////////
 // You know what your doing so update directly in the database
 //////////////////////////////////////////////////////////////
@@ -145,8 +169,8 @@ createGif()
 // Update Update Update Update
 ///////////////////////////////
 
-// async function updateOneGif(id){
-//     const result = await Gif.updateOne({_id: id}, {
+// async function updateOneImage(id){
+//     const result = await Image.updateOne({_id: id}, {
 //         $set: {
 //             isPublished: true,
 //             user: "A Different Person"
@@ -155,52 +179,52 @@ createGif()
 //     console.log(result) 
 // }
 
-// updateOneGif("5deea8948017d01b76c7402f");
+// updateOneImage("5deea8948017d01b76c7402f");
 
 
 ///////////////////////
 //// Update One ///////
 //////////////////////////////
 //////////////////////////////
-// Find By Id & Update One Gif
+// Find By Id & Update One Image
 /////////////////////////////////////////////////////////////////
 // Updating directly in the database. (returns what whas deleted)
 /////////////////////////////////////////////////////////////////
 
-// async function updateOneGif(id){
-//     const gif = await Gif.findByIdAndUpdate(id, {
+// async function updateOneImage(id){
+//     const image = await Image.findByIdAndUpdate(id, {
 //         $set: {
 //             isPublished: true,
 //             user: "Joyce"
 //         }
 //     }, {new: true});    
-//     console.log(gif) 
+//     console.log(image) 
 // }
 
-// updateOneGif("5deea8948017d01b76c7402f");
+// updateOneImage("5deea8948017d01b76c7402f");
 
 
 ////////////////////////
 //// Update Many ///////
 ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////
-// Find by a given criteria and Update Many Gif at Once
+// Find by a given criteria and Update Many Image at Once
 //////////////////////////////////////////////////////////////
 // You know what your doing so update directly in the database
 //////////////////////////////////////////////////////////////
 
-// async function updateManyGifs(){
-//     const gif = await Gif.updateMany({isPublished: true},{
+// async function updateManyImages(){
+//     const image = await Image.updateMany({isPublished: true},{
 //         $set: {
 //                 isPublished: false,
 //                 user: "rightbrainpapi",
-//                 name: "Another Great Gif"
+//                 name: "Another Great Image"
 //             }
 //     }, {new: true});
-//     console.log(gif) 
+//     console.log(image) 
 // }
 
-// updateManyGifs();
+// updateManyImages();
 
 
 
@@ -228,7 +252,7 @@ createGif()
 
 
 //////////////////////////////
-// Find By Id & Delete One Gif
+// Find By Id & Delete One Image
 //////////////////////////////
 ///////////////////////////////
 //Finds by the Id then deletes.
@@ -236,16 +260,16 @@ createGif()
 // This returns a result stating whther it was successful or not.
 /////////////////////////////////////////////////////////////////
 
-// async function removeGif(id){
-//    const result =  await Gif.deleteOne({_id: id});
+// async function removeImage(id){
+//    const result =  await Image.deleteOne({_id: id});
 //    console.log(result);
 // }
 
-// removeGif("5deea8948017d01b76c7403c");
+// removeImage("5deea8948017d01b76c7403c");
 
 
 ////////////////////////////////////
-// Find By criteria & Delete One Gif
+// Find By criteria & Delete One Image
 ////////////////////////////////////
 ////////////////////////////////////
 /////////////////////////////////////////////////////////////////
@@ -253,7 +277,7 @@ createGif()
 /////////////////////////////////////////////////////////////////
 
 // async function removeManyAtATime(name){
-//    const result =  await Gif.deleteMany({name: name});
+//    const result =  await Image.deleteMany({name: name});
 //    console.log(result);
 // }
 
@@ -261,15 +285,15 @@ createGif()
 
 
 //////////////////////////////////////////////////////////
-// Find By Id & Delete One Gif (returns what whas deleted)
+// Find By Id & Delete One Image (returns what whas deleted)
 //////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 // You know what your doing so update directly in the database.
 //////////////////////////////////////////////////////////////
 
 // async function removeOneAndShowMe(id){
-//     const deletedGif =  await Gif.findByIdAndRemove(id);
-//     console.log(deletedGif);
+//     const deletedImage =  await Image.findByIdAndRemove(id);
+//     console.log(deletedImage);
 //  }
  
 //  removeOneAndShowMe("5dee67a03302b6bad33c6e72");
