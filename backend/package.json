@@ -4,6 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "mongoose": "^5.7.14"
+    "mongoose": "^5.7.14",
+    "config": "^3.2.4",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "helmet": "^3.21.2",
+    "joi": "13.1.0",
+    "morgan": "^1.9.1"
   }
 }
