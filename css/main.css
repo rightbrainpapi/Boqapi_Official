@@ -230,6 +230,12 @@ button:focus {
     
 }
 
+
+.current-search-tabs-container{
+    display: flex;
+    justify-content: space-around;
+}
+
 .trending-search-tags{
     z-index: 2;
     

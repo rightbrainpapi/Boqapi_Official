@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const logger = require('./custom_middleware/logger');
 const auth = require('./custom_middleware/auth');
 
+const users = require('./routes/users');
 const images = require('./routes/images');
 const courses = require('./routes/courses');
 const home = require('./routes/home')
@@ -85,6 +86,7 @@ app.use(auth);
 /////////////////////////////
 /////////// Routes //////////
 /////////////////////////////
+app.use('/users', users); // Any path that start with boqapi-api/users use images router 
 app.use('/images', images); // Any path that start with boqapi-api/images use images router 
 app.use('/api/courses', courses); // Any path tht start with /api/courses use coures router 
 app.use('/', home); // Any path tht start with / use home router
