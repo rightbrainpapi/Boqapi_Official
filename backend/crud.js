@@ -78,7 +78,7 @@ async function createImage(){
     const image = new Image({
         name: "Something Newer",
         user: "King Akeem",
-        category: "photo",
+        category: "-",
         tags: [],
         isPublished: true,
         price: 99
@@ -87,8 +87,9 @@ async function createImage(){
         const result = await image.save();
         console.log(result);
     }
-    catch(err){
-        console.log(err.message)
+    catch(ex){
+        for (field in ex.errors)
+            console.log(ex.errors[field].message);
     }
 }
 
