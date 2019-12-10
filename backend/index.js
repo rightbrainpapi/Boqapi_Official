@@ -1,16 +1,33 @@
 // Express Demo
+const mongoose = require('mongoose');
 const debug = require('debug')('app:startup');
 const config = require('config');
 const morgan = require('morgan');
 const helmet = require('helmet');
-const Joi = require('joi'); // as a best practice name variables with captial letter when the package is a class
 const logger = require('./custom_middleware/logger');
 const auth = require('./custom_middleware/auth');
 
+const images = require('./routes/images');
 const courses = require('./routes/courses');
 const home = require('./routes/home')
 const express = require('express');
 const app = express();
+
+
+
+///////////////////////////////////////
+////// Connecting to Database /////////
+///////////////////////////////////////
+
+mongoose.set('useUnifiedTopology', true);
+mongoose.set('useNewUrlParser', true);
+mongoose.connect ('mongodb://localhost/boqapi-api')
+    .then(() => console.log('Connect to MongoDB...'))
+    .catch(err => console.error('Could not conect to MongoDB...', err));
+
+
+
+
 
 
 /////////////////////////
@@ -68,7 +85,7 @@ app.use(auth);
 /////////////////////////////
 /////////// Routes //////////
 /////////////////////////////
-
+app.use('/images', images); // Any path that start with boqapi-api/images use images router 
 app.use('/api/courses', courses); // Any path tht start with /api/courses use coures router 
 app.use('/', home); // Any path tht start with / use home router
 

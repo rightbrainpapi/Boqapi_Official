@@ -1,3 +1,4 @@
+// const Joi = require('joi'); // as a best practice name variables with captial letter when the package is a class
 const express = require('express');
 const router = express.Router();
 

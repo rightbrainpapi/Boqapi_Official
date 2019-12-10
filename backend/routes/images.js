@@ -1,18 +1,14 @@
+const Joi = require('@hapi/joi'); // as a best practice name variables with captial letter when the package is a class
 const mongoose = require('mongoose');
+const express = require('express');
+const router = express.Router();
 
-// mongoose.connect ('mongodb://localhost/boqapi-api')
-
-mongoose.set('useUnifiedTopology', true);
-mongoose.set('useNewUrlParser', true);
-mongoose.connect ('mongodb://localhost/boqapi-api')
-    .then(() => console.log('Connect to MongoDB...'))
-    .catch(err => console.error('Could not conect to MongoDB...', err));
-
-
+// This entire file might change to gifs to insure better organization.
+// There will be a file like this for gifs, images, & videos.
 
 //////////////////////////////////
 //////////////////////////////////
-/////////  All Schemas  //////////
+/////////  Image Schemas  ////////
 //////////////////////////////////
 //////////////////////////////////
 const imageSchema = new mongoose.Schema({
@@ -25,7 +21,9 @@ const imageSchema = new mongoose.Schema({
     category: {
         type: String,
         required: true,
-        enum: ["photo", "gif", "video"] // When creating a image the categroy we set needs to be one of these values.
+        enum: ["photo", "gif", "video"], // When creating a image the categroy we set needs to be one of these values.
+        lowercase: true,
+
     },
     user: String,
     tags: {
@@ -48,6 +46,144 @@ const imageSchema = new mongoose.Schema({
     }
 });
 
+// Creating a model based on the schema
+const Image = mongoose.model('Image', imageSchema);
+
+
+
+
+///////////////////////////////////
+//////Get All Route handlers///////
+//////////////////////////////////
+// Defining a Route
+// arg 1: the Uri
+// arg 2: the call back function that has parameters of req and res 
+    
+router.get('/', async (req, res)=>{
+    const images = await Image.find().sort('name');
+    res.send(images);
+});
+
+
+/////////////////////////////
+//////// Post Request ///////
+/////////////////////////////
+
+
+router.post('/', async (req, res) => {
+    // Input validation using Joi
+    const { error } = validateImage(req.body); // This is object destructuring. since we are interested in only 1 property we can use this notation to just grab it
+
+    // 404 Error if Id doesnt Exist. Then Return.
+    if (error) return res.status(400).send(error.details[0].message);
+
+    let image = new Image ({
+        name: req.body.name,
+        user: req.body.user,
+        image: req.body.image,
+        category: req.body.category,
+        tags: req.body.tags,
+        ispublished: req.body.isPublished,
+        price: req.body.price
+    });
+    image = await image.save();
+
+    // Send it back in the body of the res
+    res.send(image);
+});
+
+/////////////////////////////
+//////// Put Request ///////
+/////////////////////////////
+
+router.put('/:id', async  (req, res)=>{
+    // Input validation using Joi
+    const { error } = validateImage(req.body); // This is object destructuring. since we are interested in only 1 property we can use this notation to just grab it
+    // 400 if Bad Request. Then Return.
+    if (error) return res.status(400).send(error.details[0].message);
+
+    // Find and update
+    const image = await Image.findByIdAndUpdate(req.params.id, {
+            // update based on whats being sent in the body
+            name: req.body.name,
+            user: req.body.user    
+    }, {new: true});    
+    console.log(image) 
+
+    
+    // 404 Error if Id doesnt Exist. Then Return.
+    if (!image) return res.status(404).send('The image with given ID was not found.');
+
+    // return the updated image
+    res.send(image);
+
+});
+    
+
+///////////////////////////////
+//////// Delete Request ///////
+///////////////////////////////
+
+router.delete('/:id', async (req, res)=>{
+
+    const image =  await Image.findByIdAndRemove(req.params.id);
+    
+    // 404 Error if Id doesnt Exist. Then Return.
+    if (!image) return res.status(404).send('The image with given ID was not found.');
+        
+    // return the same image
+    res.send(image);
+
+});
+
+
+/////////////////////////////
+//////Get By Id Request//////
+/////////////////////////////
+router.get('/:id', async (req, res) =>{
+
+    const image = await Image.findById(req.params.id);
+        
+    // 404 Error if Id doesnt Exist. Then Return.
+    if (!image) return res.status(404).send('The image with given ID was not found.');
+    
+        // Send it back if the id does exist
+        res.send(image);
+    
+    
+    });
+
+
+
+/////////////////////////////////////
+// All necessary call back functions
+/////////////////////////////////////
+
+
+///////////////////////////////////////
+/////////// Joi Validator /////////////
+///////////////////////////////////////
+// image is req.body and req.body (and all the properties within req.body)
+function validateImage(image){   
+    // The Joi validation schema
+    // Place the criteria you want validated in the object below
+    const schema = Joi.object().keys({
+        name: Joi.string().min(5).required() // by default string must be atleast a length of at least 5 characters
+        // category: Joi.string()
+    });
+
+    return function joiValidator(){
+        const { err, value } = Joi.validate(image, schema);
+        if (err) {
+            console.log(err.details);
+        } else {
+            console.log(value);
+        }
+    }
+    
+}
+
+module.exports = router;
 
 //////////////////////////////////
 //////////////////////////////////
@@ -55,8 +191,7 @@ const imageSchema = new mongoose.Schema({
 //////////////////////////////////
 //////////////////////////////////
 
-// Creating a model based on the schema
-const Image = mongoose.model('Image', imageSchema);
+
 
 
 
@@ -64,7 +199,7 @@ const Image = mongoose.model('Image', imageSchema);
 
 //////////////////////////////////
 //////////////////////////////////
-//////  Crud Functionality  ///////
+//////  Crud Functionality  //////
 //////////////////////////////////
 //////////////////////////////////
 
@@ -74,26 +209,26 @@ const Image = mongoose.model('Image', imageSchema);
 //////////////////////////////
 // Create Create Create Create
 //////////////////////////////
-async function createImage(){
-    const image = new Image({
-        name: "Something Newer",
-        user: "King Akeem",
-        category: "-",
-        tags: [],
-        isPublished: true,
-        price: 99
-    });
-    try{
-        const result = await image.save();
-        console.log(result);
-    }
-    catch(ex){
-        for (field in ex.errors)
-            console.log(ex.errors[field].message);
-    }
-}
+// async function createImage(){
+//     const image = new Image({
+//         name: "Darnell",
+//         user: "King Akeem",
+//         category: "Photo",
+//         tags: ['afrnnno'],
+//         isPublished: true,
+//         price: 99
+//     });
+//     try{
+//         const result = await image.save();
+//         console.log(result);
+//     }
+//     catch(ex){
+//         for (field in ex.errors)
+//             console.log(ex.errors[field].message);
+//     }
+// }
 
-createImage()
+// createImage()
 
 
 
