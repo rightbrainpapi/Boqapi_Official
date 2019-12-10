@@ -14,9 +14,9 @@ const router = express.Router();
 const imageSchema = new mongoose.Schema({
     name: {
         type:String, 
-        // required: true,
-        // minlength: 5,
-        // maxlength: 25
+        required: true,
+        minlength: 5,
+        maxlength: 10
     },
     category: {
         type: String,
@@ -168,13 +168,13 @@ function validateImage(image) {
     // The Joi validation schema
     // Place the criteria you want validated in the object below
     const schema = Joi.object({
-      name: Joi.string().min(3).required(), // by default string must be atleast a length of at least 5 characters
+      name: Joi.string().min(3).max(10).required(), // by default string must be atleast a length of at least 5 characters
       user: Joi.string(),
       image: Joi.string(),
       category: Joi.string(),
       tags: Joi.string(),
       isPublished: Joi.boolean(),
-      price: Joi.number()
+      price: Joi.number().min(10).max(200)
     });
   
     return schema.validate(image);
