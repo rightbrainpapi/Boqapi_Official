@@ -1,37 +1,8 @@
-const Joi = require('@hapi/joi'); // as a best practice name variables with captial letter when the package is a class
-const mongoose = require('mongoose');
+// const Joi = require('@hapi/joi'); // as a best practice name variables with captial letter when the package is a class
+// const mongoose = require('mongoose');
+const {User, validateUser} = require('../models/userModel')
 const express = require('express');
 const router = express.Router();
-
-// This entire file might change to gifs to insure better organization.
-// There will be a file like this for gifs, users, & videos.
-
-//////////////////////////////////
-//////////////////////////////////
-/////////  User Schemas  ////////
-//////////////////////////////////
-//////////////////////////////////
-const userSchema = new mongoose.Schema({
-    name: {
-        type:String, 
-        required: true,
-        minlength: 5,
-        maxlength: 50
-    },
-    email: {
-        type: String,
-        required: true,
-        minlength: 5,
-        maxlength: 50
-    },
-    isGold: Boolean,
-});
-
-// Creating a model based on the schema
-const User = mongoose.model('User', userSchema);
-
-
-
 
 ///////////////////////////////////
 //////Get All Route handlers///////
@@ -131,41 +102,7 @@ router.get('/:id', async (req, res) =>{
 
 
 
-/////////////////////////////////////
-// All necessary call back functions
-/////////////////////////////////////
-
-
-///////////////////////////////////////
-/////////// Joi Validator /////////////
-///////////////////////////////////////
-// user is req.body and req.body (and all the properties within req.body)
-function validateUser(user) {
-    // The Joi validation schema
-    // Place the criteria you want validated in the object below
-    const schema = Joi.object({
-      name: Joi.string().min(5).max(50).required(), // by default string must be atleast a length of at least 5 characters
-      email: Joi.string().min(5).max(50).required(),
-      isGold: Joi.boolean()
-    });
-  
-    return schema.validate(user);
-  }
-
-
-
 module.exports = router;
-
-//////////////////////////////////
-//////////////////////////////////
-/////////  All Models  ///////////
-//////////////////////////////////
-//////////////////////////////////
-
-
-
-
-
 
 
 //////////////////////////////////
