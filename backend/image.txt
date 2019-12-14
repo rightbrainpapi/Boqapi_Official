@@ -1,1 +1,0 @@
-mongoimport --db boqapi --collection images --drop --file image-data.json --jsonArray
