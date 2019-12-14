@@ -25,13 +25,18 @@ router.get('/', async (req, res)=>{
 router.post('/', async (req, res) => {
     // Input validation using Joi
     const { error } = validateUser(req.body); // This is object destructuring. since we are interested in only 1 property we can use this notation to just grab it
-
     // 404 Error if Id doesnt Exist. Then Return.
     if (error) return res.status(400).send(error.details[0].message);
 
-    let user = new User ({
+    // Check to see if User exists
+    let user = await User.findOne({email:req.body.email});
+    if(user) return res.status(400).send('User already registered.')
+
+    
+    user = new User ({
         name: req.body.name,
         email: req.body.email,
+        password: req.body.password,
         isGold: req.body.isGold
     });
     user = await user.save();

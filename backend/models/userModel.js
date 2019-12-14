@@ -19,8 +19,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 5,
-        maxlength: 50
+        maxlength: 255,
+        unique: true
     },
+    password: {
+      type: String,
+      required: true,
+      minlength: 5,
+      maxlength: 1024,
+      unique: true
+  },
     isGold: Boolean,
 });
 
@@ -42,7 +50,8 @@ function validateUser(user) {
     // Place the criteria you want validated in the object below
     const schema = Joi.object({
       name: Joi.string().min(5).max(50).required(), // by default string must be atleast a length of at least 5 characters
-      email: Joi.string().min(5).max(50).required(),
+      email: Joi.string().min(5).max(255).required().email(),
+      password: Joi.string().min(5).max(255).required(),
       isGold: Joi.boolean()
     });
   
