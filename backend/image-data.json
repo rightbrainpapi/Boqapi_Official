@@ -1,6 +1,6 @@
 [
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/0-boqapiGifs.gif",
@@ -9,7 +9,7 @@
         "isPublished": true
     },
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/1-boqapiGifs.gif",
@@ -18,7 +18,7 @@
         "isPublished": false
     },
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/2-boqapiGifs.gif",
@@ -27,7 +27,7 @@
         "isPublished": false
     },
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/3-boqapiGifs.gif",
@@ -36,7 +36,7 @@
         "isPublished": false
     },
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/4-boqapiGifs.gif",
@@ -45,7 +45,7 @@
         "isPublished": true
     },
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/5-boqapiGifs.gif",
@@ -54,7 +54,7 @@
         "isPublished": true
     },
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/6-boqapiGifs.gif",
@@ -63,7 +63,7 @@
         "isPublished": true
     },
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/7-boqapiGifs.gif",
@@ -72,7 +72,7 @@
         "isPublished": true
     },
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/8-boqapiGifs.gif",
@@ -82,7 +82,7 @@
     },
 
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/9-boqapiGifs.gif",
@@ -91,7 +91,7 @@
         "isPublished": true
     },
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/10-boqapiGifs.gif",
@@ -99,7 +99,7 @@
         "price": 3,
         "isPublished": false
     },    {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/11-boqapiGifs.gif",
@@ -108,7 +108,7 @@
         "isPublished": false
     },
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/12-boqapiGifs.gif",
@@ -117,7 +117,7 @@
         "isPublished": false
     },
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/13-boqapiGifs.gif",
@@ -126,7 +126,7 @@
         "isPublished": false
     },
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/14-boqapiGifs.gif",
@@ -136,7 +136,7 @@
     },
 
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/15-boqapiGifs.gif",
@@ -144,7 +144,7 @@
         "price": 2,
         "isPublished": true
     },    {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/16-boqapiGifs.gif",
@@ -153,7 +153,7 @@
         "isPublished": true
     },
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/17-boqapiGifs.gif",
@@ -162,7 +162,7 @@
         "isPublished": true
     },
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/18-boqapiGifs.gif",
@@ -170,7 +170,7 @@
         "price": 3,
         "isPublished": false
     },    {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/19-boqapiGifs.gif",
@@ -179,7 +179,7 @@
         "isPublished": false
     },
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/20-boqapiGifs.gif",
@@ -188,7 +188,7 @@
         "isPublished": false
     },
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/21-boqapiGifs.gif",
@@ -197,7 +197,7 @@
         "isPublished": false
     },
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/22-boqapiGifs.gif",
@@ -206,7 +206,7 @@
         "isPublished": true
     },
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/23-boqapiGifs.gif",
@@ -215,7 +215,7 @@
         "isPublished": true
     },
     {
-        "name": "Some Name",
+        "title": "Some Name",
         "user": "User Name",
         "tags": ["afro gifs", "afrochella"],
         "image": "../img/24-boqapiGifs.gif",

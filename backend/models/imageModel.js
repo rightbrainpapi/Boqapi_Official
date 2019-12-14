@@ -1,5 +1,9 @@
-const Joi = require('@hapi/joi'); // as a best practice name variables with captial letter when the package is a class
+const Joi = require('@hapi/joi'); // as a best practice title variables with captial letter when the package is a class
 const mongoose = require('mongoose');
+const {genreSchema} = require('./genreModel');
+
+
+// const {User} = require('../models/userModel')
 
 //////////////////////////////////
 //////////////////////////////////
@@ -7,20 +11,29 @@ const mongoose = require('mongoose');
 //////////////////////////////////
 //////////////////////////////////
 const imageSchema = new mongoose.Schema({
-    name: {
+    title: {
         type:String, 
         required: true,
         minlength: 5,
         maxlength: 10
-    },
-    category: {
-        type: String,
-        required: true,
-        enum: ["photo", "gif", "video"], // When creating a image the categroy we set needs to be one of these values.
-        lowercase: true,
+    },  
+    genre: { 
+        type: genreSchema,  
+        required: true
+      },
+    // category: {
+    //     type: String,
+    //     required: true,
+    //     enum: ["photo", "gif", "video"], // When creating a image the categroy we set needs to be one of these values.
+    //     lowercase: true,
 
-    },
+    // },
     user: String,
+    // user: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: User // Name of the Object you are refrencing
+    
+    //   },
     tags: {
         type: Array,
         validate: {
@@ -57,10 +70,11 @@ function validateImage(image) {
     // The Joi validation schema
     // Place the criteria you want validated in the object below
     const schema = Joi.object({
-      name: Joi.string().min(3).max(10).required(), // by default string must be atleast a length of at least 5 characters
+      title: Joi.string().min(3).max(10).required(), // by default string must be atleast a length of at least 5 characters
+      genreId: Joi.string().required(),
       user: Joi.string(),
       image: Joi.string(),
-      category: Joi.string(),
+    //   category: Joi.string(),
       tags: Joi.string(),
       isPublished: Joi.boolean(),
       price: Joi.number().min(10).max(200)

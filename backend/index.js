@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const logger = require('./custom_middleware/logger');
 const auth = require('./custom_middleware/auth');
 
+const genres = require('./routes/genres');
 const users = require('./routes/users');
 const images = require('./routes/images');
 const courses = require('./routes/courses');
@@ -22,7 +23,7 @@ const app = express();
 
 mongoose.set('useUnifiedTopology', true);
 mongoose.set('useNewUrlParser', true);
-mongoose.connect ('mongodb://localhost/boqapi-api')
+mongoose.connect ('mongodb://localhost/boqapi')
     .then(() => console.log('Connect to MongoDB...'))
     .catch(err => console.error('Could not conect to MongoDB...', err));
 
@@ -86,8 +87,9 @@ app.use(auth);
 /////////////////////////////
 /////////// Routes //////////
 /////////////////////////////
-app.use('/users', users); // Any path that start with boqapi-api/users use images router 
-app.use('/images', images); // Any path that start with boqapi-api/images use images router 
+app.use('/api/genres', genres);
+app.use('/api/users', users); // Any path that start with boqapi-api/users use images router 
+app.use('/api/images', images); // Any path that start with boqapi-api/images use images router 
 app.use('/api/courses', courses); // Any path tht start with /api/courses use coures router 
 app.use('/', home); // Any path tht start with / use home router
 

@@ -1,6 +1,7 @@
-// const Joi = require('@hapi/joi'); // as a best practice name variables with captial letter when the package is a class
+// const Joi = require('@hapi/joi'); // as a best practice title variables with captial letter when the package is a class
 // const mongoose = require('mongoose');
 const {Image, validateImage} = require('../models/imageModel')
+const {Genre} = require('../models/genreModel');
 const express = require('express');
 const router = express.Router();
 
@@ -12,7 +13,7 @@ const router = express.Router();
 // arg 2: the call back function that has parameters of req and res 
     
 router.get('/', async (req, res)=>{
-    const images = await Image.find().sort('name');
+    const images = await Image.find().sort('title');
     res.send(images);
 });
 
@@ -25,15 +26,22 @@ router.get('/', async (req, res)=>{
 router.post('/', async (req, res) => {
     // Input validation using Joi
     const { error } = validateImage(req.body); // This is object destructuring. since we are interested in only 1 property we can use this notation to just grab it
-
     // 404 Error if Id doesnt Exist. Then Return.
     if (error) return res.status(400).send(error.details[0].message);
 
+    // Searching for Genre Specific Image
+    const genre = await Genre.findById(req.body.genreId);
+    if (!genre) return res.status(400).send('Invalid genre.');
+
     let image = new Image ({
-        name: req.body.name,
+        title: req.body.title,
+        genre: {
+            _id: genre._id,
+            name: genre.name
+          },
         user: req.body.user,
         image: req.body.image,
-        category: req.body.category,
+        // category: req.body.category,
         tags: req.body.tags,
         isPublished: req.body.isPublished,
         price: req.body.price
@@ -54,10 +62,18 @@ router.put('/:id', async  (req, res)=>{
     // 400 if Bad Request. Then Return.
     if (error) return res.status(400).send(error.details[0].message);
 
+    // Searching for Genre Specific Image
+    const genre = await Genre.findById(req.body.genreId);
+    if (!genre) return res.status(400).send('Invalid genre.');
+
     // Find and update
     const image = await Image.findByIdAndUpdate(req.params.id, {
             // update based on whats being sent in the body
-            name: req.body.name,
+            title: req.body.title,
+            genre: {
+                _id: genre._id,
+                name: genre.name
+              },
             user: req.body.user    
     }, {new: true});    
     console.log(image) 
@@ -134,7 +150,7 @@ router.get('/:id', async (req, res) =>{
 //////////////////////////////
 // async function createImage(){
 //     const image = new Image({
-//         name: "Darnell",
+//         title: "Darnell",
 //         user: "King Akeem",
 //         category: "Photo",
 //         tags: ['afrnnno'],
@@ -170,7 +186,7 @@ router.get('/:id', async (req, res) =>{
 //     return await Image
 //         .find({isPublished: true, tags: "afro images"})
 //         .sort({price: -1})
-//         .select({name: 1, user: 1, price: -1});
+//         .select({title: 1, user: 1, price: -1});
 //         // .count();
 // }
 
@@ -277,7 +293,7 @@ router.get('/:id', async (req, res) =>{
 //         $set: {
 //                 isPublished: false,
 //                 user: "rightbrainpapi",
-//                 name: "Another Great Image"
+//                 title: "Another Great Image"
 //             }
 //     }, {new: true});
 //     console.log(image) 
@@ -335,8 +351,8 @@ router.get('/:id', async (req, res) =>{
 // This returns a result stating whther it was successful or not.
 /////////////////////////////////////////////////////////////////
 
-// async function removeManyAtATime(name){
-//    const result =  await Image.deleteMany({name: name});
+// async function removeManyAtATime(title){
+//    const result =  await Image.deleteMany({title: title});
 //    console.log(result);
 // }
 
