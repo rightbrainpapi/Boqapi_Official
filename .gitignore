@@ -2,9 +2,10 @@
 #             Data Base           # 
 #=================================#
 gif-data.json
-image-data.json
-image.txt
+/backend/image-data.json
+/backend/image.txt
 #=================================#
 #          Node Modules           # 
 #=================================#
 /backend/node_modules
+/backend/package.json
