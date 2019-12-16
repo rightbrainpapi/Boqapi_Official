@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken')
 const Joi = require('@hapi/joi'); // as a best practice name variables with captial letter when the package is a class
 // const mongoose = require('mongoose');
 const  bcrypt = require ('bcrypt');
@@ -39,6 +40,11 @@ router.post('/', async (req, res) => {
     if (!validPassword) return res.status(400).send('Invalid email or password.');
 
 
+  // This is a payload
+    const token = jwt.sign({_id: user._id}, "jwtPrivateKey");
+    res.send(token);
+
+    
     // Send it back in the body of the res
     res.send(true);
 });
