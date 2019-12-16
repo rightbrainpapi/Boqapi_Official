@@ -4,9 +4,11 @@ const debug = require('debug')('app:startup');
 const config = require('config');
 const morgan = require('morgan');
 const helmet = require('helmet');
-const logger = require('./custom_middleware/logger');
-const auth = require('./custom_middleware/auth');
+// const logger = require('./custom_middleware/logger');
+// const auth = require('./custom_middleware/auth');
 
+
+const auth = require('./routes/auth');
 const genres = require('./routes/genres');
 const users = require('./routes/users');
 const images = require('./routes/images');
@@ -81,12 +83,13 @@ app.use(helmet());
 /////////////////////////////
 //////Custom Middleware//////
 /////////////////////////////
-app.use(logger);
-app.use(auth);
+// app.use(logger);
+// app.use(auth);
 
 /////////////////////////////
 /////////// Routes //////////
 /////////////////////////////
+app.use('/api/auth', auth);
 app.use('/api/genres', genres);
 app.use('/api/users', users); // Any path that start with boqapi-api/users use images router 
 app.use('/api/images', images); // Any path that start with boqapi-api/images use images router 
