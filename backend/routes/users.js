@@ -1,5 +1,6 @@
 // const Joi = require('@hapi/joi'); // as a best practice name variables with captial letter when the package is a class
 // const mongoose = require('mongoose');
+const  bcrypt = require ('bcrypt');
 const {User, validateUser} = require('../models/userModel')
 const express = require('express');
 const router = express.Router();
@@ -39,10 +40,22 @@ router.post('/', async (req, res) => {
         password: req.body.password,
         isGold: req.body.isGold
     });
+    const salt = await bcrypt.genSalt(15);
+    user.password = await bcrypt.hash(user.password, salt);
+
     user = await user.save();
 
     // Send it back in the body of the res
-    res.send(user);
+    res.send(
+        {
+            // Dont want to send the password back so I am selecting which items to send back.
+            name: user.name,
+            email: user.email,
+            isGold: req.body.isGold
+
+        }
+
+        );
 });
 
 /////////////////////////////
