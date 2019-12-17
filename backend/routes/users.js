@@ -1,5 +1,7 @@
 // const Joi = require('@hapi/joi'); // as a best practice name variables with captial letter when the package is a class
 // const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 const  bcrypt = require ('bcrypt');
 const {User, validateUser} = require('../models/userModel')
 const express = require('express');
@@ -45,8 +47,12 @@ router.post('/', async (req, res) => {
 
     user = await user.save();
 
+
+
+    // This is a payload
+    const token = user.generateAuthToken();
     // Send it back in the body of the res
-    res.send(
+    res.header('x-auth-token', token).send(
         {
             // Dont want to send the password back so I am selecting which items to send back.
             name: user.name,

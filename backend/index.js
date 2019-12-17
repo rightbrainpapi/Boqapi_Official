@@ -43,8 +43,6 @@ console.log('Mail Server : ' + config.get('mail.host'));
 console.log('Mail Password : ' + config.get('mail.password'));
 
 
-
-
 if (!config.get('jwtPrivateKey')){
     console.error('FATAL ERROR: jwtPrivateKey is not defined.');
     process.exit(1);

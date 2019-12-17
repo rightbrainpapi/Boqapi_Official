@@ -1,5 +1,4 @@
-const config = require('config');
-const jwt = require('jsonwebtoken')
+
 const Joi = require('@hapi/joi'); // as a best practice name variables with captial letter when the package is a class
 // const mongoose = require('mongoose');
 const  bcrypt = require ('bcrypt');
@@ -42,12 +41,12 @@ router.post('/', async (req, res) => {
 
 
   // This is a payload
-    const token = jwt.sign({_id: user._id}, config.get("jwtPrivateKey"));
+    const token = user.generateAuthToken();
     res.send(token);
 
 
-    // Send it back in the body of the res
-    res.send(true);
+    // // Send it back in the body of the res
+    // res.send(true);
 });
 
 /////////////////////////////

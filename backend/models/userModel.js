@@ -1,4 +1,5 @@
-
+const config = require('config');
+const jwt = require('jsonwebtoken')
 const Joi = require('@hapi/joi'); // as a best practice name variables with captial letter when the package is a class
 const mongoose = require('mongoose');
 
@@ -31,6 +32,11 @@ const userSchema = new mongoose.Schema({
   },
     isGold: Boolean,
 });
+
+userSchema.methods.generateAuthToken = function(){
+  const token = jwt.sign({_id: this._id}, config.get("jwtPrivateKey"));
+  return token;
+}
 
 // Creating a model based on the schema
 const User = mongoose.model('User', userSchema);
