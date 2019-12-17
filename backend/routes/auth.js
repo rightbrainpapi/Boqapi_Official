@@ -1,3 +1,4 @@
+const asyncMiddleware = require ('../custom_middleware/async');
 const Joi = require('@hapi/joi'); // as a best practice name variables with captial letter when the package is a class
 // const mongoose = require('mongoose');
 const  bcrypt = require ('bcrypt');
@@ -12,10 +13,10 @@ const router = express.Router();
 // arg 1: the Uri
 // arg 2: the call back function that has parameters of req and res 
     
-router.get('/', async (req, res)=>{
+router.get('/', asyncMiddleware(async (req, res)=>{
     const users = await User.find().sort('name');
     res.send(users);
-});
+}));
 
 
 /////////////////////////////
@@ -23,7 +24,7 @@ router.get('/', async (req, res)=>{
 /////////////////////////////
 
 
-router.post('/', async (req, res) => {
+router.post('/', asyncMiddleware(async (req, res) => {
     // Input validation using Joi
     const { error } = validateUser(req.body); // This is object destructuring. since we are interested in only 1 property we can use this notation to just grab it
     // 404 Error if Id doesnt Exist. Then Return.
@@ -46,13 +47,13 @@ router.post('/', async (req, res) => {
 
     // // Send it back in the body of the res
     // res.send(true);
-});
+}));
 
 /////////////////////////////
 //////// Put Request ///////
 /////////////////////////////
 
-router.put('/:id', async  (req, res)=>{
+router.put('/:id', asyncMiddleware(async(req, res)=>{
     // Input validation using Joi
     const { error } = validateUser(req.body); // This is object destructuring. since we are interested in only 1 property we can use this notation to just grab it
     // 400 if Bad Request. Then Return.
@@ -74,14 +75,14 @@ router.put('/:id', async  (req, res)=>{
     // return the updated user
     res.send(user);
 
-});
+}));
     
 
 ///////////////////////////////
 //////// Delete Request ///////
 ///////////////////////////////
 
-router.delete('/:id', async (req, res)=>{
+router.delete('/:id', asyncMiddleware(async (req, res)=>{
 
     const user =  await User.findByIdAndRemove(req.params.id);
     
@@ -91,13 +92,13 @@ router.delete('/:id', async (req, res)=>{
     // return the same user
     res.send(user);
 
-});
+}));
 
 
 /////////////////////////////
 //////Get By Id Request//////
 /////////////////////////////
-router.get('/:id', async (req, res) =>{
+router.get('/:id', asyncMiddleware(async (req, res) =>{
 
     const user = await User.findById(req.params.id);
         
@@ -106,7 +107,7 @@ router.get('/:id', async (req, res) =>{
     
         // Send it back if the id does exist
         res.send(user);
-    });
+    }));
 
 
 

@@ -1,3 +1,4 @@
+const asyncMiddleware = require ('../custom_middleware/async');
 const auth = require ('../custom_middleware/auth');
 const admin = require ('../custom_middleware/admin');
 const {Genre, validate} = require('../models/genreModel');
@@ -14,28 +15,28 @@ const router = express.Router();
 ////////////////////////////////////////
 // Get All Genre 
 ////////////////////////////////////////
-router.get('/', async (req, res) => {
+router.get('/', asyncMiddleware(async (req, res) => {
   const genres = await Genre.find().sort('name');
   res.send(genres);
-});
+}));
 
 ////////////////////////////////////////
 // Get Genre by ID 
 ////////////////////////////////////////
-router.get('/:id', async (req, res) => {
+router.get('/:id', asyncMiddleware(async (req, res) => {
   const genre = await Genre.findById(req.params.id);
 
   if (!genre) return res.status(404).send('The genre with the given ID was not found.');
 
   res.send(genre);
-});
+}));
 
 
 
 ////////////////////////////////////////
 // Admin Only: Create A Genre
 ////////////////////////////////////////
-router.post('/', auth,  async (req, res) => {
+router.post('/', auth,  asyncMiddleware(async(req, res) => {
 
   const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
@@ -44,13 +45,13 @@ router.post('/', auth,  async (req, res) => {
   genre = await genre.save();
   
   res.send(genre);
-});
+}));
 
 
 ////////////////////////////////////////
 // Admin Only: Create A Genre
 ////////////////////////////////////////
-router.put('/:id', async (req, res) => {
+router.put('/:id', asyncMiddleware(async (req, res) => {
   const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -61,19 +62,19 @@ router.put('/:id', async (req, res) => {
   if (!genre) return res.status(404).send('The genre with the given ID was not found.');
   
   res.send(genre);
-});
+}));
 
 
 ////////////////////////////////////////
 // Admin Only: Delete A Genre
 ////////////////////////////////////////
-router.delete('/:id', [ auth, admin], async (req, res) => {
+router.delete('/:id', [ auth, admin], asyncMiddleware(async (req, res) => {
   const genre = await Genre.findByIdAndRemove(req.params.id);
 
   if (!genre) return res.status(404).send('The genre with the given ID was not found.');
 
   res.send(genre);
-});
+}));
 
 
 

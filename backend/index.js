@@ -1,4 +1,6 @@
 // Express Demo
+
+const error = require('./custom_middleware/error')
 const mongoose = require('mongoose');
 const debug = require('debug')('app:startup');
 const config = require('config');
@@ -101,6 +103,8 @@ app.use('/api/images', images); // Any path that start with boqapi-api/images us
 app.use('/api/courses', courses); // Any path tht start with /api/courses use coures router 
 app.use('/', home); // Any path tht start with / use home router
 
+
+app.use(error)
 
 // methods available in the express package
 // There is plenty that can be done with the each Request. (checkout the express documentation)
