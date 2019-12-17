@@ -1,3 +1,4 @@
+const auth = require ('../custom_middleware/auth');
 const {Genre, validate} = require('../models/genreModel');
 const mongoose = require('mongoose');
 const express = require('express');
@@ -11,7 +12,10 @@ router.get('/', async (req, res) => {
 ////////////////////////////////////////
 // Admin Only: Create A Genre
 ////////////////////////////////////////
-router.post('/', async (req, res) => {
+router.post('/', auth,  async (req, res) => {
+
+
+
   const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
 
