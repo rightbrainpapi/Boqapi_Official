@@ -1,4 +1,3 @@
-
 const Joi = require('@hapi/joi'); // as a best practice name variables with captial letter when the package is a class
 // const mongoose = require('mongoose');
 const  bcrypt = require ('bcrypt');

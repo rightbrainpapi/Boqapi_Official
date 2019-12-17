@@ -30,11 +30,14 @@ const userSchema = new mongoose.Schema({
       maxlength: 1024,
       unique: true
   },
+    isAdmin: Boolean,
+
     isGold: Boolean,
 });
 
+// Encapsulating Logic
 userSchema.methods.generateAuthToken = function(){
-  const token = jwt.sign({_id: this._id}, config.get("jwtPrivateKey"));
+  const token = jwt.sign({_id: this._id, isAdmin: this.isAdmin}, config.get("jwtPrivateKey"));
   return token;
 }
 
