@@ -19,16 +19,14 @@ router.get('/', async (req, res)=>{
 });
 
 
-/////////////////////////////
-//////Get By Id Request//////
-/////////////////////////////
-router.get('/me', auth, async (req, res) =>{
+///////////////////////////////////////////////////////////
+//////Get By Access Token found in the header Request//////
+///////////////////////////////////////////////////////////
 
+router.get('/me', auth, async (req, res) =>{
 
     const user = await User.findById(req.user._id).select('-password');
 
-
-        
     // 404 Error if Id doesnt Exist. Then Return.
     // if (!user) return res.status(404).send('The user with given ID was not found.');
     
