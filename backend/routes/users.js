@@ -1,5 +1,6 @@
 // const Joi = require('@hapi/joi'); // as a best practice name variables with captial letter when the package is a class
 // const mongoose = require('mongoose');
+const auth = require ('../custom_middleware/auth');
 const  bcrypt = require ('bcrypt');
 const {User, validateUser} = require('../models/userModel')
 const express = require('express');
@@ -16,6 +17,24 @@ router.get('/', async (req, res)=>{
     const users = await User.find().sort('name');
     res.send(users);
 });
+
+
+/////////////////////////////
+//////Get By Id Request//////
+/////////////////////////////
+router.get('/me', auth, async (req, res) =>{
+
+
+    const user = await User.findById(req.user._id).select('-password');
+
+
+        
+    // 404 Error if Id doesnt Exist. Then Return.
+    // if (!user) return res.status(404).send('The user with given ID was not found.');
+    
+        // Send it back if the id does exist
+        res.send(user);
+    });
 
 
 /////////////////////////////
