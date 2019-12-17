@@ -1,7 +1,5 @@
 // const Joi = require('@hapi/joi'); // as a best practice name variables with captial letter when the package is a class
 // const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
-const config = require('config');
 const  bcrypt = require ('bcrypt');
 const {User, validateUser} = require('../models/userModel')
 const express = require('express');
