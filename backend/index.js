@@ -1,5 +1,7 @@
 // Express Demo
 
+
+const winston = require ('winston');
 const error = require('./custom_middleware/error')
 const mongoose = require('mongoose');
 const debug = require('debug')('app:startup');
@@ -32,13 +34,14 @@ mongoose.connect ('mongodb://localhost/boqapi')
     .catch(err => console.error('Could not conect to MongoDB...', err));
 
 
-
-
-
-
 /////////////////////////
 //////Configuration//////
 /////////////////////////
+// Handling the Error Data Logging in ./custom_middleware/logger
+
+// This below works but doesn't print to the console.
+winston.add(new winston.transports.Console())
+winston.add(new winston.transports.File({filename: 'logfile.log', handleExceptions: true}));
 
 console.log('Application Name: ' + config.get('name'));
 console.log('Mail Server : ' + config.get('mail.host'));
