@@ -144,5 +144,5 @@ document.querySelector('.close').addEventListener("click", function() {
 ///////////////////////////////////////////////
 
 var year = new Date().getFullYear();
-var date = `Copyright &copy; ${year} | Boqapi Group LLC`;
+var date = `Copyright &copy; ${year} | Boqapi Group LLC.`;
 document.getElementsByClassName('footer')[0].innerHTML = date;
