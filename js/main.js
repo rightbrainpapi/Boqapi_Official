@@ -132,16 +132,17 @@ document.getElementById('buttonTrig').addEventListener("click", function() {
 	document.querySelector('.bg-modal').style.display = "flex";
 });
 
-
-// document.getElementById('buttonReg').addEventListener("click", function() {
-// 	document.querySelector('.bg-modal').style.display = "flex";
-// });
-
-
 document.querySelector('.close').addEventListener("click", function() {
 	document.querySelector('.bg-modal').style.display = "none";
 });
 
 
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+////////////// Plugging Footer /////////////////
+///////////////////////////////////////////////
+///////////////////////////////////////////////
 
-// document.getElementsByClassName
+var year = new Date().getFullYear();
+var date = `Copyright &copy; ${year} | Boqapi Group LLC`;
+document.getElementsByClassName('footer')[0].innerHTML = date;
