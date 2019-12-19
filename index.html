@@ -28,7 +28,7 @@
             </div>
             <ul class="nav">
                 <li><a href="#">Login</a></li>
-                <li><a href="#">Join Free</a></li>
+                <li><a href="#" id="buttonTrig" class="button">Join Free</a></li>
             </ul>
         </nav>
         <div class="category-nav">
@@ -72,7 +72,7 @@
                 </p>
                 <div class="hero-search-form">
                     <form action="#">
-                        <input type="text" placeholder="Search free high-resolution photos & gifs">
+                        <input type="text" id="search" placeholder="Search free high-resolution photos & gifs">
                     </form>
                 </div>
                 <!-- This will need to be modified to be dynamic -->
@@ -96,8 +96,15 @@
 
     <section class="images">
         <h1> Gifs</h1>
+        <button class="btn btn-primary my-3" id="get">GET</button>
         <div class="masonry">
-            <a href="img/0-boqapiGifs.gif" class='single-img'>
+
+            <div id="results"></div>
+            <ul>
+      
+            </ul>
+
+            <!-- <a href="img/0-boqapiGifs.gif" class='single-img'>
                 <img src="img/0-boqapiGifs.gif" alt="Title">
             </a>
             <a href="img/1-boqapiGifs.gif" class='single-img'>
@@ -183,15 +190,36 @@
             </a>  
             <a href="img/24-boqapiGifs.gif" class='single-img'>
                 <img src="img/24-boqapiGifs.gif" alt="Title">
-            </a>      
+            </a>       -->
         </div>
     </section>
+
+
+
+            <!-- Modal Section -->
+        
+            <div class="bg-modal">
+                <div class="modal-contents">
+                    <h1>Registeration</h1>
+                    <div class="close">+</div>
+                    <img src="../public/assets/sahara.jpg" alt="">
+            
+                    <form action="">
+                        <input type="text" placeholder="Name">
+                        <input type="email" placeholder="E-Mail">
+                        <a href="#" class="button">Submit</a>
+                    </form>
+            
+                </div>
+            </div>
+    
 
     <footer class="footerContainer"> 
         <div class="footer">
             Copyright &copy; 2019 | Boqapi Group LLC.
         </div>
     </footer>
-    
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./js/main.js"></script>
 </body>
 </html>
