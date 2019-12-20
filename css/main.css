@@ -230,12 +230,49 @@ button:focus {
     
 }
 
-
-.current-search-tabs-container{
+/* /////////////////// */
+/* // searched Type // */
+/* /////////////////// */
+#searchTabContainer{
+    width: 100%;
+    /* background-color: black; */
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    justify-content: space-evenly;
 }
 
+.searchTab{
+    /* display: block; */
+    display: flex;
+    justify-content: center;
+    background: salmon;
+    color: #fff;
+    width: 15%;
+    padding: 0.5rem 0.6rem;
+    margin: 2px;
+    border-radius:5px;
+    transition: filter 0.5s ease-in-out;
+    z-index: 3;
+  
+
+}
+.searchTab:hover {
+    background-color: turquoise;
+    color: salmon;
+    filter: brightness(85%);
+    transition: .7s ;
+        z-index: 3;
+}
+.searchTab a{
+    color:#fff;
+}
+
+
+
+
+/* ////////////////////////////////////////// */
+/* ////////////////////////////////////////// */
+/* ////////////////////////////////////////// */
 .trending-search-tags{
     z-index: 2;
     
@@ -251,6 +288,26 @@ button:focus {
 }
 
 
+/* /////////////////// */
+/* // searched Type // */
+/* /////////////////// */
+#searchTypeContainer{
+    /* width: 100%; */
+    background-color: black;
+    display: flex;
+    justify-content: center;
+}
+#searchType{
+    color: chartreuse;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 30px;
+    padding-bottom: 20px;
+   
+    
+    
+}
+
+
 /* ////////////// */
 /* ////////////// */
 /* ////////////// */
@@ -262,6 +319,8 @@ button:focus {
 .images{
   margin: 2rem 2rem;  
 }
+
+
 
 
 .masonry{
@@ -323,7 +382,7 @@ img:hover{
   }
   .button:hover {
 	background-color: white;
-	/* color: #1686d9; */
+	color: #1686d9;
     border: 2px solid #1686d9;
     transition: .7s ;
   }
@@ -337,7 +396,7 @@ img:hover{
 	display: none;
 	justify-content: center;
     align-items: center;
-    z-index: 2;
+    z-index: 4;
   }
   .modal-contents {
 	height: 300px;
@@ -347,7 +406,7 @@ img:hover{
 	padding: 20px;
 	position: relative;
     border-radius: 4px;
-    z-index: 3;
+    z-index: 5;
   }
 
   .modal-contents h1 {

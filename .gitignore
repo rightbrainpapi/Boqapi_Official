@@ -4,7 +4,28 @@
 gif-data.json
 /backend/image-data.json
 /backend/image.txt
+
+
+#=================================#
+#            Error Logs           # 
+#=================================#
+combined.log
+error.log
+logfile.log
+
+
+
+
+
+
+
+
+
+
+
 #=================================#
 #          Node Modules           # 
 #=================================#
 /backend/node_modules
+
+

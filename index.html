@@ -74,7 +74,19 @@
                     <form action="#">
                         <input type="text" id="search" placeholder="Search free high-resolution photos & gifs">
                     </form>
+                    
                 </div>
+                <div id="searchTabContainer">
+                        <div class='searchTab'>
+                            <a class="tabName"> Gif</a> 
+                        </div>
+                        <div class='searchTab'>
+                            <a class="tabName"> Photo</a> 
+                        </div>
+                        <div class='searchTab'>
+                            <a class="tabName"> Video</a> 
+                        </div>
+                     </div>
                 <!-- This will need to be modified to be dynamic -->
                
                 <!-- <div class="current-search-tabs-container"> 
@@ -95,8 +107,16 @@
     </section>
 
     <section class="images">
-        <h1> Gifs</h1>
-        <button class="btn btn-primary my-3" id="get">GET</button>
+
+        <div id="searchPageContainer">
+           <h1 id="searchPage"> Page Name Here</h1> 
+        </div>
+        
+
+
+
+       <!-- This is the Masonary Container -->
+       <!-- Masonary Container staggers the images -->
         <div class="masonry">
 
             <div id="results"></div>
