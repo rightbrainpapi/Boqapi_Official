@@ -263,9 +263,9 @@ button:focus {
     transition: .7s ;
         z-index: 3;
 }
-.searchTab a{
+/* .searchTab a{
     color:#fff;
-}
+} */
 
 
 
@@ -291,14 +291,19 @@ button:focus {
 /* /////////////////// */
 /* // searched Type // */
 /* /////////////////// */
-#searchTypeContainer{
-    /* width: 100%; */
-    background-color: black;
+#searchPageContainer{
+    width: 100%;
+    /* background-color: black; */
     display: flex;
     justify-content: center;
+    width: 200px;
+    /* display:block; */
+    /* margin: 20px; */
+    display:none;
+    
 }
-#searchType{
-    color: chartreuse;
+#searchPage{
+    /* color: chartreuse; */
     font-family: 'Frank Ruhl Libre', serif;
     font-size: 30px;
     padding-bottom: 20px;
@@ -474,6 +479,7 @@ img:hover{
     justify-content: center;
     align-content: center;
     padding: 10px;
+    color: rgb(10, 65, 59);
 }
 
 
