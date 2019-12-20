@@ -96,48 +96,6 @@ document.querySelector('.close').addEventListener("click", function() {
 
 var elementsArray = document.getElementsByClassName('tabName')
 
-// function scopepreserver (a, b){
-//     // return function (){
-//         // Do something with a and b
-//         console.log(`This is i: ${a}`)
-//         console.log(`This is elems[i]: ${b}`)
-//     // };
-// }
-
-
-
-
-
-// function myfunction (){
-//     console.log(`Inside myfunction`)
-//     var elems = elementsArray;
-    
-//     for (var i = 0; i < elems.length; i++){
-//         // elems[i].onclick = scopepreserver(i, elems[i])
-//        elems[i].addEventListener('click', function (e){
-//         console.log('I am inside of the click function');
-//         console.log(`This is the event: ${e.target.id}`)
-//         // scopepreserver(i, elems[i])
-//        }, false)
-
-//     //    console.log(e.target.classList)
-//     }
-
-
-//     elems.forEach(element => console.log(element));
-// }
-
-
-// myfunction ()
-
-// elem[i].addEventListener('click', function(){
-//     // Do something
-//     console.log('This is working')
-//     // document.getElementById('searchPageContainer').textContent = "Gif";
-//     document.getElementById('searchPageContainer').style.display = "block"
-// });
-
-
 
 
 var theParent = document.getElementById("searchTabContainer");
@@ -158,7 +116,7 @@ function changeSearchPage (e){
 
         //pseudo code
         // if clickedItem is gif
-        // result call the get fetchGifs();
+        // result call the get fetchMedia();
         // 
         if(clickedItem === "gifs"){
             console.log("fetching gifs")
@@ -251,7 +209,38 @@ const search_input = document.getElementById('search');
 const results = document.getElementById('results');
 
 let search_term = '';
-let photos;
+let photos = [
+    {
+        date: "2018-01-24T21:42:27.388Z",
+        image: "../img/hardCodedData/0-boqapiPhotos.png",
+        isPublished: false,
+        price: 1,
+        tags: (2) ["afro", "afrochella"],
+        title: "Africa",
+        user: "User Name",
+        _id: "5df5093ca9644c9fd0ffdd3c" ,
+    },
+    {
+        date: "2018-01-24T21:42:27.388Z",
+        image: "../img/hardCodedData/5-boqapiPhotos.png",
+        isPublished: false,
+        price: 1,
+        tags: (2) ["afro", "afrochella"],
+        title: "Egypt",
+        user: "User Name",
+        _id: "5df5093ca9644c9fd0ffdd3c" ,
+    },
+    {
+        date: "2018-01-24T21:42:27.388Z",
+        image: "../img/hardCodedData/6-boqapiPhotos.png",
+        isPublished: false,
+        price: 1,
+        tags: (2) ["afro", "afrochella"],
+        title: "Crown",
+        user: "User Name",
+        _id: "5df5093ca9644c9fd0ffdd3c" ,
+    }
+];
 let gifs;
 let videos = [
     {
@@ -294,27 +283,27 @@ let myPics = []
 ////////////////////////////////////
 ////////////////////////////////////
 
-const createLi = (gif) => {
+const createLi = (mediaElem) => {
     const li = document.createElement('li');
-    const gif_image = document.createElement('img');
-    // const gif_title = document.createElement('h3');
-    const gif_info = document.createElement('div');
-    // const gif_population = document.createElement('h2');
-    // const gif_popupation_text = document.createElement('h5');
+    const mediaElem_image = document.createElement('img');
+    // const mediaElem_title = document.createElement('h3');
+    const mediaElem_info = document.createElement('div');
+    // const mediaElem_population = document.createElement('h2');
+    // const mediaElem_popupation_text = document.createElement('h5');
     
-    li.classList.add('gif-item');
-    gif_info.classList.add('gif-info');
+    li.classList.add('mediaElem-item');
+    mediaElem_info.classList.add('mediaElem-info');
     
-    gif_image.src = gif.image;
-    gif_image.classList.add('gif-image');
+    mediaElem_image.src = mediaElem.image;
+    mediaElem_image.classList.add('mediaElem-image');
     
-    // gif_title.innerText = gif.title;
-    // gif_title.classList.add('gif-title');
+    // mediaElem_title.innerText = mediaElem.title;
+    // mediaElem_title.classList.add('mediaElem-title');
 
 
-    li.appendChild(gif_image);
-    // li.appendChild(gif_title);
-    li.appendChild(gif_info);
+    li.appendChild(mediaElem_image);
+    // li.appendChild(mediaElem_title);
+    li.appendChild(mediaElem_info);
     // ul.appendChild(li);
     
     return li;
@@ -329,18 +318,18 @@ const createLi = (gif) => {
 // elements to the dom
 // it 
 //////////////////////////////
-const appendToDOM = (mediaElements) => {
+const appendToDOM = (mediaElems) => {
     // Clears the innerHTML before appending happens
     results.innerHTML = '';
     const ul = document.getElementById('results')
     console.log('Inside Append')
 
-    //iterate over all mediaElements
-    // checkNameFilter(mediaElements)
+    //iterate over all mediaElems
+    // checkNameFilter(mediaElems)
 
-    mediaElements.map(mediaElement => {
+    mediaElems.map(mediaElem => {
 
-        ul.appendChild(createLi(mediaElement));
+        ul.appendChild(createLi(mediaElem));
     });
 
     
@@ -352,13 +341,13 @@ const appendToDOM = (mediaElements) => {
 // Filter the Data
 //////////////////////////////
 //////////////////////////////
-function checkNameFilter(picsArrToFilter) {
-    var filteredPics = picsArrToFilter.filter(function (e) {
+function checkNameFilter(mediaElemsToFilter) {
+    var filteredMediaElems = mediaElemsToFilter.filter(function (e) {
         return e.title.toLowerCase().includes(search_term.toLowerCase());
     });
-    console.log(filteredPics);
-    //Appending the filltered Pics to the dom
-    appendToDOM(filteredPics);
+    console.log(filteredMediaElems);
+    //Appending the filltered MediaElems to the dom
+    appendToDOM(filteredMediaElems);
     
 }
 
@@ -369,8 +358,10 @@ function checkNameFilter(picsArrToFilter) {
 //////////////////////////////
 //////////////////////////////
 
-
-const fetchGifs = () => {
+// [] I need to dynamically use this get request.
+//      - fetchMedia = (mediaType)
+//      - axios.get(`http://localhost:3000/api/${mediaType}`)
+const fetchMedia = () => {
     axios.get('http://localhost:3000/api/images')
         .then(response => {
             gifs = response.data;
@@ -383,7 +374,7 @@ const fetchGifs = () => {
         .catch(error => console.error(error));
 };
 
-fetchGifs();
+fetchMedia();
 
 
 ////////////////////////////////////////////////
@@ -392,12 +383,41 @@ fetchGifs();
 //////////////////////////////////////////////
 //////////////////////////////////////////////
   
+// search_input.addEventListener('input', (e) => {
+//     // [] check to see what page we are on then run the search filter for that page.
+//     // [] get the document
+//     // [] if document. inner HTMML is gif or photos or videos run checkNameFilter with that in params
+    
+// 	search_term = e.target.value;
+// 	// re-display gifs again based on the new search_term
+//     // appendToDOM();
+//     checkNameFilter(gifs)
+// });
+
 search_input.addEventListener('input', (e) => {
-	search_term = e.target.value;
-	// re-display gifs again based on the new search_term
-    // appendToDOM();
-    checkNameFilter(gifs)
+    // [x] check to see what page we are on then run the search filter for that page.
+    // [x] get the document
+    // [x] if document. inner HTMML is gif or photos or videos run checkNameFilter with that in params
+    let a = document.getElementById("searchPage").innerHTML.toLocaleLowerCase()
+    console.log(a);
+    // let a = 2 + 2;
+    search_term = e.target.value;
+    switch (a) {
+        case 'photos':
+            // alert( 'This is photos' );
+            checkNameFilter(photos);
+            console.log(`This is the current variable a:`, a);
+        break;
+        case 'gifs':
+            checkNameFilter(gifs);
+            console.log(`This is the current variable a:`, a);
+        break;
+        case 'videos':
+            // alert( 'This is videos' );
+            checkNameFilter(videos);
+            console.log(`This is the current variable a:`, a);
+        break;
+        default:
+        alert( "We can  use this to default to a specific search" );
+    }
 });
-
-
-
