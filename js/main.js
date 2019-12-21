@@ -28,7 +28,7 @@ var theParent = document.getElementById("searchTabContainer");
 theParent.addEventListener("click", changeSearchPage, false);
 
 function changeSearchPage (e){
-    //Do something
+    // e.target refers to the parent. The current target refers to that actual clicked element
     if (e.target !== e.currentTarget){
         var clickedItem = e.target.id;
         console.log(`This is the id that was clicked:`, clickedItem);
@@ -76,15 +76,6 @@ function changeSearchPage (e){
 var year = new Date().getFullYear();
 var date = `Copyright &copy; ${year} | Boqapi Group LLC.`;
 document.getElementsByClassName('footer')[0].innerHTML = date;
-
-
-
-
-
-
-
-
-
 
 
 
