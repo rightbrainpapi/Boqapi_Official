@@ -22,42 +22,56 @@ document.querySelector('.close').addEventListener("click", function() {
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
 
-var elementsArray = document.getElementsByClassName('tabName')
+var elementsArray = document.getElementsByClassName('tabName');
 
 var theParent = document.getElementById("searchTabContainer");
-// console.log(theParent)
-
 theParent.addEventListener("click", changeSearchPage, false);
 
+// let currentPage; 
+// currentPage = document.getElementById('searchPageContainer').textContent.toLocaleLowerCase();
+
+// console.log(`This is the CurrentPage variable`, currentPage)
+
+// let previouslyClicked;
+
+//     var gamePlaying;
+//     console.log(gamePlaying)
+
 function changeSearchPage (e){
+
+
     //Do something
     if (e.target !== e.currentTarget){
         var clickedItem = e.target.id;
         console.log(`This is the id that was clicked:`, clickedItem);
-        document.getElementById('searchPage').textContent = clickedItem.toUpperCase();
+        currentPage = document.getElementById('searchPage').textContent = clickedItem.toUpperCase();
+
         document.getElementById('searchPageContainer').style.display = "block";
 
         // injectSearchedContent
-        // This function delevers the content associated with the page displayed needed.
+        // This function delevers the content associated with the page based on whats in the search bar
+        // if nothing is in the search bar it displays the entire data base. 
+        ////////////////////////////////////////////////////////////////////
 
-        //pseudo code
-        // if clickedItem is gif
-        // result call the get fetchMedia();
-        // 
-        if(clickedItem === "gifs"){
-            console.log("fetching gifs")
-            appendToDOM(gifs);
-            console.log(gifs)
+        switch (true) {
+            case (clickedItem === "photos" ):
+                console.log("fetching photos")
+                // appendToDOM(photos); // Variable is the array of objects stored from the axios call.
+                checkNameFilter(photos);
+            break;
+            case (clickedItem === "gifs" ):
+                console.log("fetching photos")
+                // appendToDOM(gifs); // Variable is the array of objects stored from the axios call.
+                checkNameFilter(gifs)
+            break;
+            case (clickedItem === "videos"):
+                console.log("fetching photos")
+                // appendToDOM(videos); // Variable is the array of objects stored from the axios call.
+                checkNameFilter(videos)
+            break;
+            default:
+            alert( "We can  use this to default to a specific search" );
         }
-        else if(clickedItem === "photos"){
-            console.log("fetching photos")
-            appendToDOM(photos); // Variable is the array of objects stored from the axios call.
-        }
-        else if(clickedItem === "videos"){
-            console.log("fetching videos")
-            appendToDOM(videos); /// Variable should bethe array of objects stored from the axios call. Currently this is an array I've created.
-        }
-
     }
     e.stopPropagation();
 }
@@ -124,9 +138,6 @@ document.getElementsByClassName('footer')[0].innerHTML = date;
 ////////////////////////////////////////////////
 
 
-
-
-
 //////////////////////////////////////////////
 /////////////// GET REQUEST //////////////////
 //////////////////////////////////////////////
@@ -152,7 +163,7 @@ let photos = [
         isPublished: false,
         price: 1,
         tags: (2) ["afro", "afrochella"],
-        title: "Egypt",
+        title: "Crown",
         user: "User Name",
         _id: "5df5093ca9644c9fd0ffdd3c" ,
     },
@@ -162,7 +173,17 @@ let photos = [
         isPublished: false,
         price: 1,
         tags: (2) ["afro", "afrochella"],
-        title: "Crown",
+        title: "Egypt",
+        user: "User Name",
+        _id: "5df5093ca9644c9fd0ffdd3c" ,
+    },
+    {
+        date: "2018-01-24T21:42:27.388Z",
+        image: "../img/hardCodedData/2-boqapiPhotos.png",
+        isPublished: false,
+        price: 1,
+        tags: (2) ["afro", "afrochella"],
+        title: "llll",
         user: "User Name",
         _id: "5df5093ca9644c9fd0ffdd3c" ,
     }
@@ -240,10 +261,8 @@ const createLi = (mediaElem) => {
 // Append To Dom Function
 //////////////////////////////
 //////////////////////////////
-// This function appends the 
-// elements to the dom
-// it 
-//////////////////////////////
+// This function appends the elements to the dom
+////////////////////////////////////////////////
 const appendToDOM = (mediaElems) => {
     // Clears the innerHTML before appending happens
     results.innerHTML = '';
@@ -310,9 +329,9 @@ fetchMedia();
 //////////////////////////////////////////////
   
 // search_input.addEventListener('input', (e) => {
-//     // [] check to see what page we are on then run the search filter for that page.
-//     // [] get the document
-//     // [] if document. inner HTMML is gif or photos or videos run checkNameFilter with that in params
+//     // [x] check to see what page we are on then run the search filter for that page.
+//     // [x] get the document
+//     // [x] if document. inner HTMML is gif or photos or videos run checkNameFilter with that in params
     
 // 	search_term = e.target.value;
 // 	// re-display gifs again based on the new search_term
@@ -324,11 +343,18 @@ search_input.addEventListener('input', (e) => {
     // [x] check to see what page we are on then run the search filter for that page.
     // [x] get the document
     // [x] if document. inner HTMML is gif or photos or videos run checkNameFilter with that in params
-    let a = document.getElementById("searchPage").innerHTML.toLocaleLowerCase()
-    console.log(a);
+    let ourPage = document.getElementById("searchPage").innerHTML.toLocaleLowerCase()
+    console.log(ourPage);
     // let a = 2 + 2;
     search_term = e.target.value;
-    switch (a) {
+
+
+
+
+
+
+
+    switch (ourPage) {
         case 'photos':
             // alert( 'This is photos' );
             checkNameFilter(photos);
