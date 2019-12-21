@@ -27,24 +27,13 @@ var elementsArray = document.getElementsByClassName('tabName');
 var theParent = document.getElementById("searchTabContainer");
 theParent.addEventListener("click", changeSearchPage, false);
 
-// let currentPage; 
-// currentPage = document.getElementById('searchPageContainer').textContent.toLocaleLowerCase();
-
-// console.log(`This is the CurrentPage variable`, currentPage)
-
-// let previouslyClicked;
-
-//     var gamePlaying;
-//     console.log(gamePlaying)
-
 function changeSearchPage (e){
-
-
     //Do something
     if (e.target !== e.currentTarget){
         var clickedItem = e.target.id;
         console.log(`This is the id that was clicked:`, clickedItem);
-        currentPage = document.getElementById('searchPage').textContent = clickedItem.toUpperCase();
+        document.getElementById('searchPage').textContent = clickedItem.toUpperCase();
+        // document.getElementById('searchPage').innerHTML;
 
         document.getElementById('searchPageContainer').style.display = "block";
 
@@ -53,21 +42,22 @@ function changeSearchPage (e){
         // if nothing is in the search bar it displays the entire data base. 
         ////////////////////////////////////////////////////////////////////
 
+        // [] Dynamically evaluate the cases whether photos gifs or videos.
         switch (true) {
             case (clickedItem === "photos" ):
                 console.log("fetching photos")
                 // appendToDOM(photos); // Variable is the array of objects stored from the axios call.
-                checkNameFilter(photos);
+                filteredSearch(photos);
             break;
             case (clickedItem === "gifs" ):
                 console.log("fetching photos")
                 // appendToDOM(gifs); // Variable is the array of objects stored from the axios call.
-                checkNameFilter(gifs)
+                filteredSearch(gifs)
             break;
             case (clickedItem === "videos"):
                 console.log("fetching photos")
                 // appendToDOM(videos); // Variable is the array of objects stored from the axios call.
-                checkNameFilter(videos)
+                filteredSearch(videos)
             break;
             default:
             alert( "We can  use this to default to a specific search" );
@@ -75,10 +65,6 @@ function changeSearchPage (e){
     }
     e.stopPropagation();
 }
-
-
-
-
 
 
 ////////////////////////////////////////////////
@@ -90,35 +76,6 @@ function changeSearchPage (e){
 var year = new Date().getFullYear();
 var date = `Copyright &copy; ${year} | Boqapi Group LLC.`;
 document.getElementsByClassName('footer')[0].innerHTML = date;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -270,7 +227,7 @@ const appendToDOM = (mediaElems) => {
     console.log('Inside Append')
 
     //iterate over all mediaElems
-    // checkNameFilter(mediaElems)
+    // filteredSearch(mediaElems)
 
     mediaElems.map(mediaElem => {
 
@@ -286,7 +243,7 @@ const appendToDOM = (mediaElems) => {
 // Filter the Data
 //////////////////////////////
 //////////////////////////////
-function checkNameFilter(mediaElemsToFilter) {
+function filteredSearch(mediaElemsToFilter) {
     var filteredMediaElems = mediaElemsToFilter.filter(function (e) {
         return e.title.toLowerCase().includes(search_term.toLowerCase());
     });
@@ -331,43 +288,35 @@ fetchMedia();
 // search_input.addEventListener('input', (e) => {
 //     // [x] check to see what page we are on then run the search filter for that page.
 //     // [x] get the document
-//     // [x] if document. inner HTMML is gif or photos or videos run checkNameFilter with that in params
+//     // [x] if document. inner HTMML is gif or photos or videos run filteredSearch with that in params
     
 // 	search_term = e.target.value;
 // 	// re-display gifs again based on the new search_term
 //     // appendToDOM();
-//     checkNameFilter(gifs)
+//     filteredSearch(gifs)
 // });
 
 search_input.addEventListener('input', (e) => {
+    search_term = e.target.value;
     // [x] check to see what page we are on then run the search filter for that page.
     // [x] get the document
-    // [x] if document. inner HTMML is gif or photos or videos run checkNameFilter with that in params
+    // [x] if document. inner HTMML is gif or photos or videos run filteredSearch with that in params
+    
+    // Checks what page we are on. then enters switch statement to call the appropriate filter
     let ourPage = document.getElementById("searchPage").innerHTML.toLocaleLowerCase()
     console.log(ourPage);
-    // let a = 2 + 2;
-    search_term = e.target.value;
-
-
-
-
-
-
-
+    
     switch (ourPage) {
         case 'photos':
             // alert( 'This is photos' );
-            checkNameFilter(photos);
-            console.log(`This is the current variable a:`, a);
+            filteredSearch(photos);
         break;
         case 'gifs':
-            checkNameFilter(gifs);
-            console.log(`This is the current variable a:`, a);
+            filteredSearch(gifs);
         break;
         case 'videos':
             // alert( 'This is videos' );
-            checkNameFilter(videos);
-            console.log(`This is the current variable a:`, a);
+            filteredSearch(videos);
         break;
         default:
         alert( "We can  use this to default to a specific search" );
